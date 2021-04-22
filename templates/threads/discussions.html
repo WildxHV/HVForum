@@ -1,0 +1,68 @@
+{% extends 'home/base.html' %}
+{% load humanize %}
+
+{% block style %}
+<style>
+h2{
+    font-family: neue-haas-grotesk-display;
+    line-height: 1.1;
+    font-weight: 900;
+    padding-bottom: 0.5rem;
+    margin: 0;
+    font-size: 2.488rem
+}
+.que_desc{
+    clear: both;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin: 0.5rem 0 1.5rem;
+}
+
+h6{
+    position: relative;
+    font-size: 0.9rem;
+    
+    align-items: center;
+}
+
+</style>
+{% endblock style %}
+
+
+{% block body %}
+
+<div class="container bg-light my-4">
+    <h1>{{question.queTitle}}</h1>
+     <p class="que_desc">{{question.queDesc}}</p>
+     <hr class="my-4">
+    <h6>~By <em>{{question.username}}</em> {{question.timeStamp|naturaltime}}</h6>
+</div>
+
+{% if user.is_authenticated %}
+<div class="container">
+        <form action="" method="post">
+        {% csrf_token %}
+            <h4>Comment</h4>
+            <div class="my-2">
+                <label for="comment"></label>
+                <textarea id="comment" style="width: 40%;  background-color: #f8f8f8;" placeholder="Comment" name="comment" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary my-1">Post</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="alert alert-info mx-5" role="alert">
+        <em>You are not Logged in.</em>
+        <a data-bs-toggle="modal" data-bs-target="#loginModal" class="alert-link"><strong>Login</strong></a> to comment.
+      </div>
+{% endif %}
+
+<h2 class="mx-5">Answers</h2>
+    <hr>
+    {% for Comments in allcomments  %}
+    <div class="container">
+       <h6>~By <em>{{Comments.username}}</em> {{Comments.timestamp|naturaltime}}</h6>
+       <p>{{Comments.comment}}</p>
+          </div>
+          {% endfor %}
+{% endblock body %}

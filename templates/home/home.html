@@ -1,0 +1,89 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% comment %} {% extends 'home/cube.html' %} {% endcomment %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
+    a {
+        font-weight: bolder;
+        font-family: 'Courgette', cursive;
+    }
+
+    .navbar {
+        background: linear-gradient(to right, #a4c5c7, #2D3F48);
+    }
+
+    /* .welcome {
+        width: 45%;
+    } */
+
+    #welcome {
+        /* background: -webkit-linear-gradient(#605eec, #2D3F48); */
+        /* background: linear-gradient(to right, #30CFD0 0%, #330867 100%); */
+        background: linear-gradient(to right, aqua 0%, #022435 40%);
+        /* background: linear-gradient(red, blue); */
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        /* font-size: 6vh; */
+        font-weight: bolder;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-style: italic;
+        /* color: rgb(16, 255, 255); */
+        /* color: linear-gradient(to bottom right, #a4c5c7, #2D3F48); */
+    }
+
+    .top_cat {
+        font-family: 'Monoton', cursive;
+        background: linear-gradient(to right, aqua 0%, #022435 110%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .cuboid {
+        margin-top: -500px;
+        margin-bottom: 450px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        /* background: linear-gradient(to bottom right, #a4c5c7, #2D3F48); */
+    }
+
+    .color_cube {
+        background: linear-gradient(to right, #a4c5c7, #2D3F48);
+        width: 100%;
+        height: 100vh;
+        margin-bottom: 20px;
+    }
+</style>
+
+{% endblock style %}
+
+<!-- Body of the home page -->
+
+{% block body %}
+<div class="color_cube">
+    <div class="welcome p-5">
+        <h1 id="welcome">Welcome to Tech Forum</h1>
+        <h5>Find the best answer to your technical question, help others answer theirs
+        </h5>
+    </div>
+</div>
+<div class="container cuboid">{% include 'home/cube.html' %}</div>
+
+
+<!-- cards for the display of titles -->
+
+<div class="container text-center">
+    <h1 class="top_cat">TOP-CATEGORIES</h1>
+</div>
+
+<div class="title_cards">{% include 'home/title_cards.html' %}</div>
+{% endblock body %}
