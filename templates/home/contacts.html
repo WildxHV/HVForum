@@ -1,1 +1,45 @@
 {% extends 'home/base.html' %}
+
+{% block style %}
+<style>
+.container{
+  min-height : 95vh;
+}
+</style>
+{% endblock style %}
+
+{%block body %}
+<div class="container my-3">
+  <h3>Contact Tech Forum admin</h3>
+  <form action="" method="POST">
+  {% csrf_token %}
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        name="email"
+      />
+      <div id="emailHelp" class="form-text">
+        We'll never share your email with anyone else.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone number</label>
+      <input type="phone" class="form-control" id="phone" name="phone"/>
+    </div>
+    <div class="mb-3">
+      <label for="desc" class="form-label">Describe your issue:</label>
+      <textarea class="form-control" name="desc" id="desc" cols="30" rows="5" name="desc"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+{% endblock body %}

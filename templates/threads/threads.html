@@ -65,8 +65,9 @@ h1{
     {% for Discussions in alldiscussions %}
     <div class="container mb-5">
          <h4> <a class="text-dark text-decoration-none" href="{% url 'discussions' %}?queId={{Discussions.queId}}">{{Discussions.queTitle}}</a></h4>
-         <h6 class="text-end">~By <em>{{Discussions.username}}</em> {{Discussions.timeStamp}}</h6>
          <p>{{Discussions.queDesc}}</p>
+         <h6 class="text-end">~By <em>{{Discussions.username}}</em> <mark>{{Discussions.timeStamp|naturaltime}}</mark></h6>
          </div>
+         <hr>
     {% endfor %}
 {% endblock body %}

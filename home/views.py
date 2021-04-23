@@ -3,7 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from home.models import Categories
+from home.models import Categories, Contacts
+from threads.models import Discussions
+# Q objects can be used with boolean & (and) or | (or) statements to have multiple conditions expressed within a single lookup.
+from django.db.models import Q
 
 # Create your views here.
 # Home page
@@ -25,7 +28,44 @@ def about(request):
 def contacts(request):
     title = "Contact Us"
     active_contacts = "active"
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        desc = request.POST['desc']
+
+        if len(name)<2 or len(email)<4 or len(phone)<10 or len(desc)<3:
+            messages.error(request, 'Please fill the form correctly')
+        else:      
+            contact = Contacts(name= name , email=email,phone= phone,desc=desc)
+            contact.save()
+            messages.success(request, 'Your form has been successfully filled.')
     return render(request, "home/contacts.html",{'title':title, 'active_contacts': active_contacts})
+
+def search(request):
+        # return render(request, 'home/search.html')
+
+    if request.method == 'GET':
+        query= request.GET.get('query')
+
+        submitbutton= request.GET.get('submit')
+
+        if query is not None:
+            lookups= Q(queTitle__icontains=query) | Q(queDesc__icontains=query)
+
+            results= Discussions.objects.filter(lookups).distinct()
+
+            context={'results': results,
+                    'query' : query,
+                     'submitbutton': submitbutton}
+
+            return render(request, 'home/search.html', context)
+
+        else:
+            return render(request, 'home/search.html')
+
+    else:
+        return render(request, 'home/search.html')
 
 
 # HAndle the signup Or Create an account 

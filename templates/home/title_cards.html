@@ -67,7 +67,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 110%;
+      height: 100%;
       background-size: cover;
       background-position: 0 0;
       transition: transform calc(var(--d) * 1.5) var(--e);
@@ -92,31 +92,69 @@
 
     .card:nth-child(1):before {
       background-image: url('{% static 'images/i-1.png' %}');
-      width : 400px;
+      background-position : center;
+      width : 100%;
+      height : 100%;
     }
 
     .card:nth-child(2):before {
       background-image: url('{% static 'images/i-2.png' %}');
-            width : 400px; 
+             width : 100%;
+      height : 100%;
+            {% comment %} margin-top:-10px; {% endcomment %}
+            {% comment %} margin-left:-10px; {% endcomment %}
+      background-position : center;
+      
 
     }
 
     .card:nth-child(3):before {
       background-image: url('{% static 'images/i-3.png' %}');
- width : 250px;
+ {% comment %} width : 250px;
+ height : 350px; {% endcomment %}
+      background-position : center;
+      width : 100%;
+      height : 100%;
+
     }
 
     .card:nth-child(4):before {
       background-image: url('{% static 'images/i-4.png' %}');
-      margin-top: 20px;
-       width : 220px;
-       height : 120px;
+      
+     
+width : 250px;
+ height : 150px;
+ margin-top:100px;
+      background-position : center;
+
     }
     .card:nth-child(5):before {
       background-image: url('{% static 'images/i-5.png' %}');
+      background-position : center;
+
     }
     .card:nth-child(6):before {
       background-image: url('{% static 'images/i-6.png' %}');
+      background-position : center;
+      
+ width : 100%;
+      height : 100%;
+    }
+    .card:nth-child(7):before {
+      background-image: url('{% static 'images/i-7.png' %}');
+      {% comment %} background-position : center;
+       margin-top:50px;
+      margin-left :12.5px;
+width : 210px;
+ height : 250px; {% endcomment %}
+    }
+    .card:nth-child(8):before {
+      background-image: url('{% static 'images/i-8.png' %}');
+      {% comment %} background-position : center; {% endcomment %}
+      {% comment %} margin-top:50px;
+      margin-left :12.5px;
+width : 210px;
+ height : 250px; {% endcomment %}
     }
 
     .content {

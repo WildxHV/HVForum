@@ -1,0 +1,53 @@
+{% extends 'home/base.html' %}
+
+{% block style %}
+<style>
+    .search_results {
+        min-height: calc(100vh - 40px)
+    }
+
+    .search_results{
+        min-height : 95vh;
+    }
+
+    .container h1 {
+        font-family: 'Crimson Pro', serif;
+        font-size: 50px;
+        font-weight: bold;
+    }
+</style>
+{% endblock style %}
+
+{% block body %}
+
+<div class="search_results">
+    <div class="container">
+        <h1 class="my-2">Search Results for <em>"{{query}}":</em></h1>
+    </div>
+    <hr>
+    {% if results %}
+
+    {% for Discussions in results %}
+    <div class="container search_results  my-2">
+        <h3><a class="text-decoration-none text-dark" href="{% url 'discussions' %}?queId={{Discussions.queId}}"
+                class="text-dark">{{Discussions.queTitle}}</a> </h3>
+        <p>&nbsp&nbsp{{Discussions.queDesc}}</p>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <p class="display-4">No Results Found</p>
+            <p class="lead"> Suggestions:
+            <ul>
+                <li>Make sure that all words are spelled correctly.</li>
+                <li>Try different keywords.</li>
+                <li>Try more general keywords. </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock body %}

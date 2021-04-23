@@ -1,1 +1,1474 @@
-{% extends 'home/base.html' %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    {% block style %}{% endblock style %}
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>{{title}}</title>
+    <style>
+        .imgLoader {
+            position: fixed;
+            -webkit-animation: preLoad 1s steps(1);
+            animation: preLoad 1s steps(1);
+            width: 1px;
+            height: 1px;
+        }
+
+        @-webkit-keyframes preLoad {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+            }
+
+            10% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+            }
+
+            30% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+            }
+
+            100% {
+                display: none;
+            }
+        }
+
+        @keyframes preLoad {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+            }
+
+            10% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+            }
+
+            30% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+            }
+
+            100% {
+                display: none;
+            }
+        }
+
+
+        .title {
+            line-height: 2;
+
+        }
+
+
+
+
+        .book {
+            position: relative;
+            perspective: 630px;
+            perspective-origin: center 50px;
+            transform: scale(2);
+            filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.25));
+            margin-top: -150px;
+            margin-left: 50%;
+            width: max-content;
+        }
+
+        .page {
+            width: 210px;
+            height: 300px;
+            background-color: #bbb;
+            position: absolute;
+            top: 0px;
+            right: 50%;
+            transform-origin: 100% 100%;
+            border: solid #555 2px;
+            background-size: 420px 300px;
+            background-position: center;
+        }
+
+        .page:nth-child(1) {
+            transform: rotateX(60deg) rotateY(3deg);
+        }
+
+        .page:nth-child(2) {
+            transform: rotateX(60deg) rotateY(4.5deg);
+        }
+
+        .page:nth-child(3) {
+            transform: rotateX(60deg) rotateY(6deg);
+            -webkit-animation: nextPage 25s infinite -24s steps(1);
+            animation: nextPage 25s infinite -24s steps(1);
+            background-size: 420px 300px;
+            background-position: -2px -2px;
+        }
+
+        .page:nth-child(4) {
+            transform: rotateX(60deg) rotateY(177deg);
+        }
+
+        .page:nth-child(5) {
+            transform: rotateX(60deg) rotateY(175.5deg);
+        }
+
+        .page:nth-child(6) {
+            transform: rotateX(60deg) rotateY(174deg);
+            overflow: hidden;
+        }
+
+        .page:nth-child(6)::after {
+            content: "";
+            width: 210px;
+            height: 300px;
+            position: absolute;
+            top: 0px;
+            right: 0%;
+            transform-origin: center;
+            transform: rotateY(180deg);
+            -webkit-animation: nextPage 25s -20s infinite steps(1);
+            animation: nextPage 25s -20s infinite steps(1);
+            background-size: 420px 300px;
+            background-position: 100% -2px;
+        }
+
+        @-webkit-keyframes nextPage {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+            }
+        }
+
+        @keyframes nextPage {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+            }
+        }
+
+        .gap {
+            width: 10px;
+            height: 300px;
+            background: none;
+            transform: rotateX(60deg);
+            transform-origin: bottom;
+            position: absolute;
+            top: 0px;
+            left: calc(50% - 5px);
+        }
+
+        .gap::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            background-color: #555;
+            width: 10px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .flip {
+            width: 32px;
+            height: 300px;
+            position: absolute;
+            top: 0px;
+            transform-origin: 100% 100%;
+            right: 100%;
+            border: solid #555;
+            border-width: 2px 0px;
+            perspective: 4200px;
+            perspective-origin: center;
+            transform-style: preserve-3d;
+            background-size: 420px 300px;
+        }
+
+        .flip::after {
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: 0%;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            background-size: 420px 300px;
+        }
+
+        .flip.flip1 {
+            right: 50%;
+            -webkit-animation: flip1 5s infinite ease-in-out;
+            animation: flip1 5s infinite ease-in-out;
+            border-width: 2px 2px 2px 0;
+        }
+
+        .flip.flip1::after {
+            -webkit-animation: nextFlip1 25s -20s infinite steps(1);
+            animation: nextFlip1 25s -20s infinite steps(1);
+        }
+
+        .flip:not(.flip1) {
+            right: calc(100% - 2px);
+            top: -2px;
+            transform-origin: right;
+            -webkit-animation: flip2 5s ease-in-out infinite;
+            animation: flip2 5s ease-in-out infinite;
+        }
+
+        .flip.flip2::after {
+            -webkit-animation: nextFlip2 25s -20s infinite steps(1);
+            animation: nextFlip2 25s -20s infinite steps(1);
+        }
+
+        .flip.flip3::after {
+            -webkit-animation: nextFlip3 25s -20s infinite steps(1);
+            animation: nextFlip3 25s -20s infinite steps(1);
+        }
+
+        .flip.flip4::after {
+            -webkit-animation: nextFlip4 25s -20s infinite steps(1);
+            animation: nextFlip4 25s -20s infinite steps(1);
+        }
+
+        .flip.flip5::after {
+            -webkit-animation: nextFlip5 25s -20s infinite steps(1);
+            animation: nextFlip5 25s -20s infinite steps(1);
+        }
+
+        .flip.flip6::after {
+            -webkit-animation: nextFlip6 25s -20s infinite steps(1);
+            animation: nextFlip6 25s -20s infinite steps(1);
+        }
+
+        .flip.flip7::after {
+            -webkit-animation: nextFlip7 25s -20s infinite steps(1);
+            animation: nextFlip7 25s -20s infinite steps(1);
+        }
+
+        .flip.flip7 {
+            width: 30px;
+            border-width: 2px 0px 2px 2px;
+        }
+
+        .flip.flip7::after {
+            -webkit-animation: nextFlip7 25s -20s infinite steps(1);
+            animation: nextFlip7 25s -20s infinite steps(1);
+        }
+
+        @-webkit-keyframes flip1 {
+
+            0%,
+            20% {
+                transform: rotateX(60deg) rotateY(6deg);
+            }
+
+            80%,
+            100% {
+                transform: rotateX(60deg) rotateY(174deg);
+            }
+        }
+
+        @keyframes flip1 {
+
+            0%,
+            20% {
+                transform: rotateX(60deg) rotateY(6deg);
+            }
+
+            80%,
+            100% {
+                transform: rotateX(60deg) rotateY(174deg);
+            }
+        }
+
+        @-webkit-keyframes flip2 {
+
+            0%,
+            20% {
+                transform: rotateY(0deg) translateY(0px);
+            }
+
+            50% {
+                transform: rotateY(-15deg) translateY(0px);
+            }
+        }
+
+        @keyframes flip2 {
+
+            0%,
+            20% {
+                transform: rotateY(0deg) translateY(0px);
+            }
+
+            50% {
+                transform: rotateY(-15deg) translateY(0px);
+            }
+        }
+
+        @-webkit-keyframes nextFlip1 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            10% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            30% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            50% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            70% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            90% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes nextFlip1 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            10% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            30% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            50% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            70% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -178px -2px;
+                transform: rotateY(0deg);
+            }
+
+            90% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -210px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @-webkit-keyframes nextFlip2 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            10.5% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            30.5% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            50.5% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            70.5% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            90.5% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes nextFlip2 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            10.5% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            30.5% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            50.5% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            70.5% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -148px -2px;
+                transform: rotateY(0deg);
+            }
+
+            90.5% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -238px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @-webkit-keyframes nextFlip3 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            11% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            31% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            51% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            71% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            91% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes nextFlip3 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            11% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            31% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            51% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            71% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -118px -2px;
+                transform: rotateY(0deg);
+            }
+
+            91% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -268px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @-webkit-keyframes nextFlip4 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            11.5% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            31.5% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            51.5% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            71.5% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            91.5% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes nextFlip4 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            11.5% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            31.5% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            51.5% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            71.5% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -88px -2px;
+                transform: rotateY(0deg);
+            }
+
+            91.5% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -298px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @-webkit-keyframes nextFlip5 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            12% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            32% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            52% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            72% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            92% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes nextFlip5 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            12% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            32% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            52% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            72% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -58px -2px;
+                transform: rotateY(0deg);
+            }
+
+            92% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -328px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @-webkit-keyframes nextFlip6 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            12.5% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            32.5% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            52.5% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            72.5% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            92.5% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes nextFlip6 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            12.5% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            32.5% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            52.5% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            72.5% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -28px -2px;
+                transform: rotateY(0deg);
+            }
+
+            92.5% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -358px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @-webkit-keyframes nextFlip7 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            13% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            33% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            53% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            73% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            93% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes nextFlip7 {
+            0% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            13% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+
+            20% {
+                background-image: url("https://picsum.photos/420/300?random=2");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            33% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+
+            40% {
+                background-image: url("https://picsum.photos/420/300?random=3");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            53% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+
+            60% {
+                background-image: url("https://picsum.photos/420/300?random=4");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            73% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+
+            80% {
+                background-image: url("https://picsum.photos/420/300?random=5");
+                background-position: -2px -2px;
+                transform: rotateY(0deg);
+            }
+
+            93% {
+                background-image: url("https://picsum.photos/420/300?random=1");
+                background-position: -388px -2px;
+                transform: rotateY(180deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Tech Forum</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {{active_home}}" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{active_about}}" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{active_contacts}}" href="{% url 'contacts' %}">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex my-2" action="{% url 'search' %}" method="get">
+                    <input class="form-control me-2" type="search" name="query" id="query" required placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {% if user.is_authenticated %}
+                <!-- <div class="mx-2">
+            <a class="text-light ">Welcome {{user.get_username}}</a>
+            <a type="button" class="btn btn-success" href="{% url 'logout' %}">Logout</a>
+            </div> -->
+
+                <div class="flex-shrink-0 mx-3 dropdown">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle show" id="dropdownUser2"
+                        data-bs-toggle="dropdown" aria-expanded="true">
+                        <img src="https://nagriksevakendra.in/default/login/avatar.png" alt="mdo" width="32" height="32"
+                            class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small shadow " aria-labelledby="dropdownUser2"
+                        data-popper-placement="bottom-end"
+                        style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-110px, 34px);">
+                        <li><a class="dropdown-item" href="">Welcome {{user.get_username}}</a> </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="mx-2">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">Login</button>
+                    <button type="button" class="btn btn-success ml-1" data-bs-toggle="modal"
+                        data-bs-target="#signupModal">SignUp</button>
+                </div>
+                {% endif %}
+                {% comment %} Account dropdown {% endcomment %}
+
+                {% comment %} <div class="dropdown text-end">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div> {% endcomment %}
+            </div>
+        </div>
+        </div>
+    </nav>
+
+    <!-- Message box Error and success -->
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show my-0" role="alert">
+        <strong>Message: </strong>{{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+
+    <!--  Signup Modal  -->
+
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="signupModalLabel">Create an account</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container mt-3">
+                        <form action="/signup" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="fname" class="form-label">First Name</label>
+                                <input type="text" maxlength="50" class="form-control" id="fname" name="fname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lname" class="form-label">Last Name</label>
+                                <input type="text" maxlength="50" class="form-control" id="lname" name="lname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" maxlength="55" class="form-control" id="email" name="email"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" maxlength="15" class="form-control" id="username" name="username"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    aria-describedby="passHelp" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cpassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="cpassword" name="cpassword"
+                                    aria-describedby="passHelp" required>
+                                <div id="passHelp" class="form-text">*Password and Confirm Password should be same.
+                                </div>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary my-2">Signup</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% comment %} Login Modal {% endcomment %}
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center" id="loginModalLabel">Login to Tech Forum</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container mt-3">
+
+                        <form action="/login" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                    aria-describedby="emailHelp" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="passwrod" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    aria-describedby="passHelp" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary my-2">Login</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="imgLoader"></div>
+    <h1 class="title text-center my-4">
+        About Us
+    </h1>
+
+    <div class="book">
+        <div class="gap"></div>
+        <div class="pages">
+            <div class="page"></div>
+            <div class="page"></div>
+            <div class="page"></div>
+            <div class="page"></div>
+            <div class="page"></div>
+            <div class="page"></div>
+        </div>
+        <div class="flips">
+            <div class="flip flip1">
+                <div class="flip flip2">
+                    <div class="flip flip3">
+                        <div class="flip flip4">
+                            <div class="flip flip5">
+                                <div class="flip flip6">
+                                    <div class="flip flip7"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    {% comment %} Footer {% endcomment %}
+    <!-- 
+  <div style="
+    position: relative;
+   
+    width: 100%;
+    background-color: #333333;
+   
+    width: 100%;
+    color: #fff;
+    line-height: 40px;
+    font-size: 0.7em;
+    text-align: center;FFFFFF
+    bottom:0;
+">Copyright &copy; 2021 Tech Forum | All rights reserved</div> -->
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
