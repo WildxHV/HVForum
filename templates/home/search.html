@@ -1,13 +1,9 @@
-{% extends 'home/base.html' %}
+{% extends 'base.html' %}
 
 {% block style %}
 <style>
     .search_results {
         min-height: calc(100vh - 40px)
-    }
-
-    .search_results{
-        min-height : 95vh;
     }
 
     .container h1 {
@@ -28,11 +24,12 @@
     {% if results %}
 
     {% for Discussions in results %}
-    <div class="container search_results  my-2">
+    <div class="container  my-2">
         <h3><a class="text-decoration-none text-dark" href="{% url 'discussions' %}?queId={{Discussions.queId}}"
                 class="text-dark">{{Discussions.queTitle}}</a> </h3>
         <p>&nbsp&nbsp{{Discussions.queDesc}}</p>
     </div>
+    <hr>
     {% endfor %}
 
     {% else %}
@@ -51,3 +48,4 @@
 </div>
 {% endif %}
 {% endblock body %}
+

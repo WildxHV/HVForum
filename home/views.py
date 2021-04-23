@@ -43,8 +43,6 @@ def contacts(request):
     return render(request, "home/contacts.html",{'title':title, 'active_contacts': active_contacts})
 
 def search(request):
-        # return render(request, 'home/search.html')
-
     if request.method == 'GET':
         query= request.GET.get('query')
 
