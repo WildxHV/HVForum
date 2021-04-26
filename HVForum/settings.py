@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'threads.apps.ThreadsConfig',
     'django.contrib.humanize',
+    'crispy_forms',
     
 ]
 
@@ -138,5 +139,14 @@ MESSAGE_TAGS = {
    messages.ERROR:'danger',
 }
 
- 
+# Password reset link mail backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# in order to do this we have to add some mailing service like amazon aws for this to work
+# LIKE THIS
+
+# EMAIL_BACKEND = 'django_ses.SESBackend'
+# AWS_ACCESS_KEY_ID = 'YOUR-ACCESS-KEY-ID'
+# AWS_SECRET_ACCESS_KEY = 'YOUR-SECRET-ACCESS-KEY'
+# AWS_SES_REGION_NAME = 'REGION-NAME' #(ex: us-east-2)
+# AWS_SES_REGION_ENDPOINT ='REGION-ENDPOINT' #(ex: email.us-east-2.amazonaws.com)
 

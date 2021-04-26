@@ -10,5 +10,6 @@ urlpatterns = [
     path('login', views.loginHandle, name= "login"),
     path('logout', views.logoutHandle, name= "logout"),
     path('search', views.search, name= "search"),
-
+    
+    path("password_reset", views.password_reset_request, name="password_reset")
 ]
