@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from django.contrib import messages
+import django_heroku
+django_heroku.settings(locals())
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +31,7 @@ SECRET_KEY = 'jzhxof8akr_te!ks+dz_f3_l#96ysul4fgg8*ntyyr2#6z8!q$'
 DEBUG = True
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
