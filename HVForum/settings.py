@@ -46,6 +46,11 @@ INSTALLED_APPS = [
     'threads.apps.ThreadsConfig',
     'django.contrib.humanize',
     'crispy_forms',
+    # Google Authentication(Google Signup)
+    'allauth',   
+    # 'allauth.account',  
+    # 'allauth.socialaccount',  
+    # 'allauth.socialaccount.providers.google/',
     
 ]
 
@@ -150,3 +155,25 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # AWS_SES_REGION_NAME = 'REGION-NAME' #(ex: us-east-2)
 # AWS_SES_REGION_ENDPOINT ='REGION-ENDPOINT' #(ex: email.us-east-2.amazonaws.com)
 
+# Google Authentication Backend
+
+# AUTHENTICATION_BACKENDS = (
+#  'django.contrib.auth.backends.ModelBackend',
+#  'allauth.account.auth_backends.AuthenticationBackend',
+#  )
+ 
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}

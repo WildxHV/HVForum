@@ -23,7 +23,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('threads/', include('threads.urls')),
 
-
+    # path('accounts/', include('allauth.urls')),
 # Reset password link in django admin  login page
     path(
      'admin/password_reset/',
